@@ -15,12 +15,15 @@ router.get('/facilities/score', facilitiesController.scoreNursesByFacility);
 router.get('/facilities/score/:facility', facilitiesController.scoreNursesByFacilityId);
 
 /* JOBS */
-router.get('/jobs', facilitiesController.getAllJobs);
+router.get('/jobs', facilitiesController.availableEndpoints);
+router.get('/jobs/list', facilitiesController.getAllJobs);
 
 /* NURSE HIRED JOBS */
-router.get('/nurse_hired_jobs', facilitiesController.getAllNuerseHiredJobs);
+router.get('/nurse_hired_jobs', facilitiesController.availableEndpoints);
+router.get('/nurse_hired_jobs/list', facilitiesController.getAllNuerseHiredJobs);
 
 /* NURSES */
-router.get('/nurses', facilitiesController.getAllNurses);
+router.get('/nurses', facilitiesController.availableEndpoints);
+router.get('/nurses/list', facilitiesController.getAllNurses);
 
 module.exports = router;

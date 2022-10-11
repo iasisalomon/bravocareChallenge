@@ -5,8 +5,12 @@ module.exports = {
 		res.send({
 			availableEndpoints: {
 				'/facilities/list': 'GET all facilities',
+				'/facilities/score': 'GET all facilities with their nurses score',
+				'/facilities/score/:facility_id': 'GET one facility with their nurses score',
+				'/jobs/list': 'GET all jobs',
+				'/nurse_hired_jobs/list': 'GET all nurse hired jobs',
+				'/nurses/list': 'GET all nurses',
 			},
-			'/facilities/data': 'GET all valid facilities and save to CSV',
 		});
 	},
 	getAllFacilities: async (req, res, next) => {
