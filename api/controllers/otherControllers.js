@@ -8,6 +8,7 @@ module.exports = {
 				'/facilities/score': 'GET all facilities with their nurses score',
 				'/facilities/score/:facility_id': 'GET one facility with their nurses score',
 				'/jobs/list': 'GET all jobs',
+				'/jobs/vacancies': 'GET all jobs with their vacancies',
 				'/nurse_hired_jobs/list': 'GET all nurse hired jobs',
 				'/nurses/list': 'GET all nurses',
 				'/nurses/list/types': 'GET all nurse types',
@@ -65,6 +66,15 @@ module.exports = {
 			res.send(err);
 		}
 	},
+	getAllNurses: async (req, res, next) => {
+		try {
+			let aux = [];
+			const [results, metadata] = await sequelize.query('SELECT * FROM "nurses"');
+			res.send(results);
+		} catch (err) {
+			res.send(err);
+		}
+	},
 	getNurseTypes: async (req, res, next) => {
 		try {
 			const [results, metadata] = await sequelize.query('SELECT * FROM "nurses"');
@@ -86,11 +96,61 @@ module.exports = {
 			res.send(err);
 		}
 	},
-	getAllNurses: async (req, res, next) => {
+	getAvailabilityByNurseId: async (req, res, next) => {
+		const nurse_id = req.params.nurseId;
+
 		try {
-			let aux = [];
-			const [results, metadata] = await sequelize.query('SELECT * FROM "nurses"');
-			res.send(results);
+			const [jobs, jobs_meta] = await sequelize.query('SELECT * FROM "jobs"');
+			const [nurse_hired_jobs, nurse_hired_jobs_meta] = await sequelize.query('SELECT * FROM "nurse_hired_jobs"');
+			const [nurses, nurses_meta] = await sequelize.query('SELECT * FROM "nurses"');
+			const allJobsIds = jobs.map((el) => {
+				return el.job_id;
+			});
+			const uniqueJobIds = [...new Set(allJobsIds)];
+			const alreadyHired = uniqueJobIds.map((job) => {
+				const jobVacancies = {
+					job_id: job,
+					vacancies: 0,
+				};
+				nurse_hired_jobs.forEach((nurse_hired_job) => {
+					if (nurse_hired_job.job_id == job) {
+						jobVacancies.vacancies++;
+					}
+				});
+				return jobVacancies;
+			});
+			//vacancies calc
+			jobs.forEach((job) => {
+				alreadyHired.forEach((jobVacancy) => {
+					if (job.job_id == jobVacancy.job_id) {
+						job.total_number_nurses_needed = job.total_number_nurses_needed - jobVacancy.vacancies;
+					}
+				});
+			});
+
+			//see all available jobs
+			const allAvailableJobs = jobs.filter((job) => {
+				return job.total_number_nurses_needed !== 0;
+			});
+
+			const nurseIsHired = nurse_hired_jobs.filter((nurse_hired_job) => {
+				return nurse_hired_job.nurse_id == nurse_id;
+			});
+
+			const cannotBeHired = allAvailableJobs.filter((job) => {
+				return nurseIsHired.map((nurse_hired_job) => nurse_hired_job.job_id).includes(job.job_id);
+			});
+
+			const availableJobs = allAvailableJobs.filter((job) => {
+				return !cannotBeHired.map((nurse_hired_job) => nurse_hired_job.job_id).includes(job.job_id);
+			});
+
+			res.send([
+				{
+					nurse_id: nurse_id,
+					available_jobs: availableJobs.length,
+				},
+			]);
 		} catch (err) {
 			res.send(err);
 		}

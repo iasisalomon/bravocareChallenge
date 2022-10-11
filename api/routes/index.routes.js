@@ -3,29 +3,30 @@ const router = express.Router();
 
 // controllers
 const indexController = require('../controllers/indexController');
-const facilitiesController = require('../controllers/otherControllers.js');
+const otherControllers = require('../controllers/otherControllers.js');
 
 /* INDEX */
 router.get('/', indexController.index);
 
 /* FACILITIES */
-router.get('/facilities', facilitiesController.availableEndpoints);
-router.get('/facilities/list', facilitiesController.getAllFacilities);
-router.get('/facilities/score', facilitiesController.scoreNursesByFacility);
-router.get('/facilities/score/:facility', facilitiesController.scoreNursesByFacilityId);
+router.get('/facilities', otherControllers.availableEndpoints);
+router.get('/facilities/list', otherControllers.getAllFacilities);
+router.get('/facilities/score', otherControllers.scoreNursesByFacility);
+router.get('/facilities/score/:facility', otherControllers.scoreNursesByFacilityId);
 
 /* JOBS */
-router.get('/jobs', facilitiesController.availableEndpoints);
-router.get('/jobs/list', facilitiesController.getAllJobs);
-router.get('/jobs/vacancies', facilitiesController.getAllJobsVacancies);
+router.get('/jobs', otherControllers.availableEndpoints);
+router.get('/jobs/list', otherControllers.getAllJobs);
+router.get('/jobs/vacancies', otherControllers.getAllJobsVacancies);
 
 /* NURSE HIRED JOBS */
-router.get('/nurse_hired_jobs', facilitiesController.availableEndpoints);
-router.get('/nurse_hired_jobs/list', facilitiesController.getAllNuerseHiredJobs);
+router.get('/nurse_hired_jobs', otherControllers.availableEndpoints);
+router.get('/nurse_hired_jobs/list', otherControllers.getAllNuerseHiredJobs);
 
 /* NURSES */
-router.get('/nurses', facilitiesController.availableEndpoints);
-router.get('/nurses/list', facilitiesController.getAllNurses);
-router.get('/nurses/list/types', facilitiesController.getNurseTypes);
+router.get('/nurses', otherControllers.availableEndpoints);
+router.get('/nurses/list', otherControllers.getAllNurses);
+router.get('/nurses/list/types', otherControllers.getNurseTypes);
+router.get('/nurses/available/:nurseId', otherControllers.getAvailabilityByNurseId);
 
 module.exports = router;
