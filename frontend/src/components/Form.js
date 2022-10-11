@@ -1,30 +1,77 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './form.css';
 
-export class Form extends Component {
-	render() {
-		return (
-			<form>
-				<div className='row my-2'>
-					<div className='col'>
-						<input type='text' className='form-control' placeholder='First name' />
-					</div>
-				</div>
-				<div className='row my-2'>
-					<div className='col'>
-						<select id='inputState' class='form-select'>
-							<option selected>Choose...</option>
-							<option>...</option>
-						</select>
-					</div>
-				</div>
-				<div className='row my-2'>
-					<div className='col'>
-						<button className='btn btn-success'>Submit</button>
-					</div>
-				</div>
-			</form>
-		);
+function Form() {
+	//state
+	const [facilities, setFacilities] = useState([]);
+	const [facility, setFacility] = useState('100');
+	const [scores, setScores] = useState([]);
+
+	// render fire
+	useEffect(() => {
+		async function getData() {
+			const resList = await axios.get('http://localhost:3000/facilities/list');
+			setFacilities(resList.data);
+		}
+		getData();
+	}, []);
+
+	// getters
+	function getScores(e) {
+		e.preventDefault();
+		async function fetchScores() {
+			try {
+				const resOne = await axios.get(`http://localhost:3000/facilities/score/${facility}`);
+				setScores(resOne.data);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		fetchScores();
 	}
+
+	//setters
+	async function setFacilityValue(e) {
+		setFacility(e.target.value);
+	}
+
+	//render functions
+	const options = facilities.map((facility, index) => {
+		return (
+			<option key={index} value={facility.facility_id} defaultValue={index === 0 ? true : false}>
+				{facility.facility_name}
+			</option>
+		);
+	});
+
+	const scoresList = scores.map((score, index) => {
+		console.log(score);
+		return (
+			<div className='col border_div p-3 border bg-light d-flex justify-content-center align-items-center' key={index}>
+				<span className='text_big'>{score.nurse_id}</span>
+			</div>
+		);
+	});
+
+	return (
+		<form>
+			<div className='row my-2'>
+				<div className='col'>
+					<select onChange={setFacilityValue} id='inputState' className='form-select'>
+						{options}
+					</select>
+				</div>
+				<div className='col'>
+					<button onClick={getScores} className='btn btn-success'>
+						Submit
+					</button>
+				</div>
+			</div>
+			<div class='row gx-5'>{scoresList}</div>
+		</form>
+	);
 }
 
 export default Form;
