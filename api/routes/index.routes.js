@@ -17,6 +17,7 @@ router.get('/facilities/score/:facility', facilitiesController.scoreNursesByFaci
 /* JOBS */
 router.get('/jobs', facilitiesController.availableEndpoints);
 router.get('/jobs/list', facilitiesController.getAllJobs);
+router.get('/jobs/vacancies', facilitiesController.getAllJobsVacancies);
 
 /* NURSE HIRED JOBS */
 router.get('/nurse_hired_jobs', facilitiesController.availableEndpoints);
@@ -25,5 +26,6 @@ router.get('/nurse_hired_jobs/list', facilitiesController.getAllNuerseHiredJobs)
 /* NURSES */
 router.get('/nurses', facilitiesController.availableEndpoints);
 router.get('/nurses/list', facilitiesController.getAllNurses);
+router.get('/nurses/list/types', facilitiesController.getNurseTypes);
 
 module.exports = router;

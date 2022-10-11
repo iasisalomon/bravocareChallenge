@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './form.css';
 
 function Form() {
 	//state
@@ -46,14 +45,25 @@ function Form() {
 		);
 	});
 
-	const scoresList = scores.map((score, index) => {
-		return (
-			<div className='col border bg-light d-flex justify-content-center align-items-center border_div' key={index}>
-				<span className='text_big'>{score.nurse_id}</span>
-			</div>
-		);
-	});
+	function renderScores() {
+		if (scores.length > 0) {
+			return scores.map((score, index) => {
+				return (
+					<div className='col border bg-light d-flex justify-content-center align-items-center border_div' key={index}>
+						<span className='text_big'>{score.score}</span>
+					</div>
+				);
+			});
+		} else {
+			return (
+				<div className='col border bg-light d-flex justify-content-center align-items-center border_div'>
+					<span className='text_big'>No data</span>
+				</div>
+			);
+		}
+	}
 
+	// Main JSX
 	return (
 		<form className='py-2'>
 			<div className='row px-3 my-3'>
@@ -68,7 +78,7 @@ function Form() {
 					</button>
 				</div>
 			</div>
-			<div className='row px-3 gap-3'>{scoresList}</div>
+			<div className='row px-3 gap-3'>{renderScores()}</div>
 		</form>
 	);
 }
