@@ -1,0 +1,9 @@
+.border_div {
+	border-radius: 5px;
+	height: 128px;
+}
+
+.text_big {
+	font-size: 20px;
+	font-weight: bolder;
+}
