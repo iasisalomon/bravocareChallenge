@@ -1,9 +1,11 @@
 import React from 'react';
-
 import Form from './components/Form';
+
+import './app.css';
+
 function App() {
 	return (
-		<div className='container g-0'>
+		<div className='container g-0 background_general'>
 			<Form />
 		</div>
 	);

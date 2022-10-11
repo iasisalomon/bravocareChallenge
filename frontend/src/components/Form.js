@@ -49,16 +49,16 @@ function Form() {
 	const scoresList = scores.map((score, index) => {
 		console.log(score);
 		return (
-			<div className='col border_div p-3 border bg-light d-flex justify-content-center align-items-center' key={index}>
+			<div className='col border bg-light d-flex justify-content-center align-items-center border_div' key={index}>
 				<span className='text_big'>{score.nurse_id}</span>
 			</div>
 		);
 	});
 
 	return (
-		<form>
-			<div className='row my-2'>
-				<div className='col'>
+		<form className='py-2'>
+			<div className='row px-3 my-3'>
+				<div className='col p-0'>
 					<select onChange={setFacilityValue} id='inputState' className='form-select'>
 						{options}
 					</select>
@@ -69,7 +69,7 @@ function Form() {
 					</button>
 				</div>
 			</div>
-			<div class='row gx-5'>{scoresList}</div>
+			<div className='row px-3 gap-3'>{scoresList}</div>
 		</form>
 	);
 }
