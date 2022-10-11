@@ -30,7 +30,6 @@ function Q4() {
 			try {
 				const res = await axios.get('http://localhost:3000/nurses/available/' + nurse);
 				setAvailableJobs(res.data);
-				console.log('res.data :>> ', res.data[0]);
 			} catch (error) {
 				console.log(error);
 			}
@@ -60,7 +59,7 @@ function Q4() {
 		);
 	});
 
-	function renderVacancies() {
+	function renderNurses() {
 		if (availableJobs.length > 0 && availableJobs[0].nurse_id == nurse) {
 			return (
 				<>
@@ -117,7 +116,7 @@ function Q4() {
 						Submit
 					</button>
 				</div>
-				<div className='row px-3 my-2 gap-3'>{renderVacancies()}</div>
+				<div className='row px-3 my-2 gap-3'>{renderNurses()}</div>
 			</div>
 		</>
 	);
