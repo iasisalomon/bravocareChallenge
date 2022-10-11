@@ -11,7 +11,6 @@ const sequelize = require('./database/database');
 
 // routers
 const indexRouter = require('./routes/index.routes');
-const facilitiesRouter = require('./routes/facilities.routes');
 
 // app
 const app = express();
@@ -35,7 +34,6 @@ try {
 
 // routes
 app.use('/', indexRouter);
-app.use('/facilities', facilitiesRouter);
 app.use(function (req, res, next) {
 	res.status(404).send({
 		code: 404,

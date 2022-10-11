@@ -47,7 +47,6 @@ function Form() {
 	});
 
 	const scoresList = scores.map((score, index) => {
-		console.log(score);
 		return (
 			<div className='col border bg-light d-flex justify-content-center align-items-center border_div' key={index}>
 				<span className='text_big'>{score.nurse_id}</span>
@@ -58,7 +57,7 @@ function Form() {
 	return (
 		<form className='py-2'>
 			<div className='row px-3 my-3'>
-				<div className='col p-0'>
+				<div className='col px-0'>
 					<select onChange={setFacilityValue} id='inputState' className='form-select'>
 						{options}
 					</select>

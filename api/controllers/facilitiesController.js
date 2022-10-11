@@ -18,6 +18,33 @@ module.exports = {
 			res.send(err);
 		}
 	},
+	getAllJobs: async (req, res, next) => {
+		try {
+			let aux = [];
+			const [results, metadata] = await sequelize.query('SELECT * FROM "jobs"');
+			res.send(results);
+		} catch (err) {
+			res.send(err);
+		}
+	},
+	getAllNuerseHiredJobs: async (req, res, next) => {
+		try {
+			let aux = [];
+			const [results, metadata] = await sequelize.query('SELECT * FROM "nurse_hired_jobs"');
+			res.send(results);
+		} catch (err) {
+			res.send(err);
+		}
+	},
+	getAllNurses: async (req, res, next) => {
+		try {
+			let aux = [];
+			const [results, metadata] = await sequelize.query('SELECT * FROM "nurses"');
+			res.send(results);
+		} catch (err) {
+			res.send(err);
+		}
+	},
 	scoreNursesByFacility: async (req, res, next) => {
 		try {
 			let aux = [];
@@ -97,45 +124,6 @@ module.exports = {
 			} else {
 				res.send({ error: 'Invalid facility ID' });
 			}
-		} catch (err) {
-			res.send(err);
-		}
-	},
-	jobs: async (req, res, next) => {
-		try {
-			let aux = [];
-			const [results, metadata] = await sequelize.query('SELECT * FROM "jobs"');
-			// const allNursesIds = results.map((el) => {
-			// 	return el.nurse_id;
-			// });
-			// const uniqueNursesIds = [...new Set(allNursesIds)];
-			// const allFacilitiesIds = results.map((el) => {
-			// 	return el.facility_id;
-			// });
-			// const uniqueFacilitiesIds = [...new Set(allFacilitiesIds)];
-			// uniqueNursesIds.map((nurse) => {
-			// 	uniqueFacilitiesIds.map((facility) => {
-			// 		let score = 0;
-			// 		results.map((el) => {
-			// 			if (el.nurse_id === nurse && el.facility_id === facility) {
-			// 				if (el.worked_shift === true) {
-			// 					score += 1;
-			// 				}
-			// 				if (el.call_out === true) {
-			// 					score -= 3;
-			// 				}
-			// 				if (el.no_call_no_show === true) {
-			// 					score -= 5;
-			// 				}
-			// 			}
-			// 		});
-			// 		aux.push({ nurse_id: nurse, facility_id: facility, score: score });
-			// 	});
-			// });
-			// aux.sort((a, b) => {
-			// 	return b.score - a.score;
-			// });
-			res.send(results);
 		} catch (err) {
 			res.send(err);
 		}
