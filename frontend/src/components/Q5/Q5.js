@@ -105,8 +105,6 @@ function Q4() {
 				<div className='col'>
 					<h4>Hiring Availability per Nurse</h4>
 				</div>
-				<div>{nurse}</div>
-				<div>{JSON.stringify(selectedNurse)}</div>
 			</div>
 			<div className='row px-3 my-3'>
 				<div className='col px-0'>
