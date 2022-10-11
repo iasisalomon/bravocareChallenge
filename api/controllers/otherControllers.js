@@ -1,4 +1,3 @@
-// const facilities = require('../models/Facilities.js');
 const sequelize = require('../database/database.js');
 
 module.exports = {

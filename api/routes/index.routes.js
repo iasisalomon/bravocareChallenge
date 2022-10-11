@@ -3,7 +3,7 @@ const router = express.Router();
 
 // controllers
 const indexController = require('../controllers/indexController');
-const facilitiesController = require('../controllers/facilitiesController.js');
+const facilitiesController = require('../controllers/otherControllers.js');
 
 /* INDEX */
 router.get('/', indexController.index);
