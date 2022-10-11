@@ -92,22 +92,26 @@ function Q4() {
 	}
 
 	return (
-		<div className='row px-3 my-3'>
-			<div className='col px-0'>
-				<select onChange={setJobValue} id='inputState' className='form-select'>
-					{selectJobs}
-				</select>
+		<>
+			<div className='row px-3 my-3'>
+				<div className='col'>
+					<h4>Vacancies per Job Listing</h4>
+				</div>
 			</div>
-			<div className='col'>
-				<button onClick={getAllData} className='btn btn-success'>
-					Submit
-				</button>
+			<div className='row px-3 my-3'>
+				<div className='col px-0'>
+					<select onChange={setJobValue} id='inputState' className='form-select'>
+						{selectJobs}
+					</select>
+				</div>
+				<div className='col'>
+					<button onClick={getAllData} className='btn btn-success'>
+						Submit
+					</button>
+				</div>
+				<div className='row px-3 my-2 gap-3'>{renderVacancies()}</div>
 			</div>
-			<div className='row px-3 my-2 gap-3'>
-				{/*  */}
-				{renderVacancies()}
-			</div>
-		</div>
+		</>
 	);
 }
 

@@ -67,6 +67,11 @@ function Form() {
 	return (
 		<form className='py-2'>
 			<div className='row px-3 my-3'>
+				<div className='col'>
+					<h4> Hiring Scores per Facility</h4>
+				</div>
+			</div>
+			<div className='row px-3 my-3'>
 				<div className='col px-0'>
 					<select onChange={setFacilityValue} id='inputState' className='form-select'>
 						{options}
