@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 // controllers
-const indexController = require('../controllers/indexController');
 const otherControllers = require('../controllers/otherControllers.js');
 
 /* INDEX */
-router.get('/', indexController.index);
+router.get('/', otherControllers.availableEndpoints);
 
 /* FACILITIES */
 router.get('/facilities', otherControllers.availableEndpoints);

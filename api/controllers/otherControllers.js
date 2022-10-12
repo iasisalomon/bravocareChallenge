@@ -4,15 +4,24 @@ module.exports = {
 	availableEndpoints: async (req, res, next) => {
 		res.send({
 			availableEndpoints: {
-				'/facilities/list': 'GET all facilities',
-				'/facilities/score': 'GET all facilities with their nurses score',
-				'/facilities/score/:facility_id': 'GET one facility with their nurses score',
-				'/facilities/most_hired_nurse/:facility_id': 'GET one facility with their most hired nurse',
-				'/jobs/list': 'GET all jobs',
-				'/jobs/vacancies': 'GET all jobs with their vacancies',
-				'/nurse_hired_jobs/list': 'GET all nurse hired jobs',
-				'/nurses/list': 'GET all nurses',
-				'/nurses/list/types': 'GET all nurse types',
+				facilities: {
+					'/facilities/list': 'GET all facilities',
+					'/facilities/score': 'GET all facilities with their nurses score',
+					'/facilities/score/:facility_id': 'GET one facility with their nurses score',
+					'/facilities/most_hired_nurse/:facility': 'GET the most hired nurse by facility',
+				},
+				jobs: {
+					'/jobs/list': 'GET all jobs',
+					'/jobs/vacancies': 'GET all jobs with their vacancies',
+				},
+				nurse_hired_jobs: {
+					'/nurse_hired_jobs/list': 'GET all nurse hired jobs',
+				},
+				nurses: {
+					'/nurses/list': 'GET all nurses',
+					'/nurses/list/types': 'GET all nurse types',
+					'/nurses/available/:nurseId': 'GET nurse availability by nurse id',
+				},
 			},
 		});
 	},
