@@ -7,6 +7,7 @@ module.exports = {
 				'/facilities/list': 'GET all facilities',
 				'/facilities/score': 'GET all facilities with their nurses score',
 				'/facilities/score/:facility_id': 'GET one facility with their nurses score',
+				'/facilities/most_hired_nurse/:facility_id': 'GET one facility with their most hired nurse',
 				'/jobs/list': 'GET all jobs',
 				'/jobs/vacancies': 'GET all jobs with their vacancies',
 				'/nurse_hired_jobs/list': 'GET all nurse hired jobs',
@@ -234,6 +235,31 @@ module.exports = {
 			} else {
 				res.send({ error: 'Invalid facility ID' });
 			}
+		} catch (err) {
+			res.send(err);
+		}
+	},
+	mostHiredNurseByFacilityId: async (req, res, next) => {
+		const param_facility_id = req.params.facility;
+		try {
+			const [res_jobs, jobs_metadata] = await sequelize.query('SELECT * FROM "jobs"');
+			const [res_nurse_hired_jobs, nurse_hired_jobs_metadata] = await sequelize.query(
+				'SELECT * FROM "nurse_hired_jobs"'
+			);
+			const [res_nurses, nurses_metadata] = await sequelize.query('SELECT * FROM "nurses"');
+
+			const facilityJobs = res_jobs.filter((job) => {
+				return job.facility_id == param_facility_id;
+			});
+
+			const nurseIds = res_nurse_hired_jobs.filter((nurse_hired_job) => {
+				return facilityJobs.map((job) => job.job_id).includes(nurse_hired_job.job_id);
+			});
+
+			const mostHiredNurse = res_nurses.find((nurse) => {
+				return nurseIds.map((nurseId) => nurseId.nurse_id).includes(nurse.nurse_id);
+			});
+			res.send(mostHiredNurse);
 		} catch (err) {
 			res.send(err);
 		}

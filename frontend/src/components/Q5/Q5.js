@@ -60,7 +60,7 @@ function Q4() {
 	});
 
 	function renderNurses() {
-		if (availableJobs.length > 0 && availableJobs[0].nurse_id == nurse) {
+		if (availableJobs.length > 0 && availableJobs[0].nurse_id === nurse) {
 			return (
 				<>
 					<div
